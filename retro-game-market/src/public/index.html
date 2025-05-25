@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GameStore - Sua Loja de Jogos</title>
+  <meta name="description" content="A melhor loja de jogos online com os melhores preços e variedade">
+  <meta name="author" content="GameStore">
+
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-900 text-white">
+  <header class="bg-gradient-to-r from-purple-900 to-blue-900 shadow-lg">
+    <div class="container mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between">
+      <h1 class="text-3xl md:text-4xl font-gaming font-bold mb-4 md:mb-0 glow-text">GameStore</h1>
+      <nav>
+        <ul class="flex space-x-6">
+          <li><a href="#" id="nav-games" class="nav-link active">Jogos</a></li>
+          <li><a href="#" id="nav-cart" class="nav-link">Carrinho <span id="cart-count" class="bg-red-500 text-white rounded-full px-2 py-1 text-xs">0</span></a></li>
+          <li><a href="#" id="nav-admin" class="nav-link">Administração</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-8">
+    <!-- Games Section -->
+    <section id="games-section">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-2xl md:text-3xl font-gaming glow-text">Nosso Catálogo de Jogos</h2>
+      </div>
+
+      <div id="games-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <!-- Games will be dynamically rendered here -->
+        <div class="text-center py-12 col-span-full">
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+          <p>Carregando jogos...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section id="cart-section" class="hidden">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-2xl md:text-3xl font-gaming glow-text">Seu Carrinho</h2>
+      </div>
+
+      <div id="cart-container" class="bg-gray-800 rounded-lg p-6">
+        <!-- Cart items will be rendered here -->
+        <div class="text-center py-12">
+          <p>Seu carrinho está vazio.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Checkout Section -->
+    <section id="checkout-section" class="hidden">
+      <div class="flex items-center space-x-4 mb-6">
+        <button id="back-to-cart" class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg flex items-center">
+          <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Voltar ao Carrinho
+        </button>
+        <h2 class="text-2xl md:text-3xl font-gaming glow-text">Finalizar Pedido</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-gray-800 rounded-lg p-6">
+          <h3 class="text-xl font-bold mb-4">Resumo do Pedido</h3>
+          <div id="checkout-items" class="space-y-4">
+            <!-- Checkout items will be rendered here -->
+          </div>
+          <div class="border-t border-gray-700 mt-4 pt-4">
+            <div class="flex justify-between items-center text-xl font-bold">
+              <span>Total:</span>
+              <span id="checkout-total" class="glow-text">R$ 0,00</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 rounded-lg p-6">
+          <h3 class="text-xl font-bold mb-4">Forma de Pagamento</h3>
+          
+          <div class="space-y-6">
+            <div class="space-y-3">
+              <label class="flex items-center space-x-3">
+                <input type="radio" name="payment" value="credit" class="form-radio">
+                <div>
+                  <p class="font-semibold">Cartão de Crédito</p>
+                  <p class="text-sm text-gray-400">Parcelamento em até 3x sem juros</p>
+                </div>
+              </label>
+              
+              <label class="flex items-center space-x-3">
+                <input type="radio" name="payment" value="debit" class="form-radio">
+                <div>
+                  <p class="font-semibold">Cartão de Débito</p>
+                  <p class="text-sm text-gray-400">Pagamento à vista</p>
+                </div>
+              </label>
+              
+              <label class="flex items-center space-x-3">
+                <input type="radio" name="payment" value="pix" class="form-radio">
+                <div>
+                  <p class="font-semibold">PIX</p>
+                  <p class="text-sm text-gray-400">Pagamento instantâneo</p>
+                </div>
+              </label>
+            </div>
+
+            <div id="installments-container" class="hidden">
+              <label class="block mb-2">Parcelamento</label>
+              <select id="installments" class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3">
+                <option value="1">1x sem juros</option>
+                <option value="2">2x sem juros</option>
+                <option value="3">3x sem juros</option>
+              </select>
+            </div>
+
+            <button id="confirm-payment" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-md disabled:opacity-50 disabled:cursor-not-allowed">
+              Confirmar Pagamento
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Admin Section -->
+    <section id="admin-section" class="hidden">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-2xl md:text-3xl font-gaming glow-text">Administração de Jogos</h2>
+      </div>
+
+      <form id="game-form" class="bg-gray-800 rounded-lg p-6 mb-8">
+        <h3 class="text-xl font-bold mb-4">Cadastrar Novo Jogo</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <label class="block mb-2">Nome do Jogo *</label>
+            <input type="text" id="nome" class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3" required>
+          </div>
+          
+          <div>
+            <label class="block mb-2">Gênero *</label>
+            <select id="genero" class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3" required>
+              <option value="">Selecione o gênero</option>
+              <option value="Ação">Ação</option>
+              <option value="Aventura">Aventura</option>
+              <option value="RPG">RPG</option>
+              <option value="Estratégia">Estratégia</option>
+              <option value="Esportes">Esportes</option>
+              <option value="Corrida">Corrida</option>
+              <option value="Simulação">Simulação</option>
+              <option value="Puzzle">Puzzle</option>
+              <option value="Terror">Terror</option>
+              <option value="Indie">Indie</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          <div>
+            <label class="block mb-2">Preço (R$) *</label>
+            <input type="number" id="preco" class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3" step="0.01" min="0" required>
+          </div>
+          
+          <div>
+            <label class="block mb-2">Estoque</label>
+            <input type="number" id="quantidade" class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3" min="0" value="1">
+          </div>
+          
+          <div>
+            <label class="block mb-2">Nota (1-10)</label>
+            <input type="number" id="classificacao" class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3" min="1" max="10" value="8">
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="block mb-2">URL da Imagem</label>
+          <input type="text" id="imagem" class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3" placeholder="https://exemplo.com/imagem.jpg">
+        </div>
+
+        <div class="flex space-x-3">
+          <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-md flex items-center">
+            <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 5V19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Cadastrar Jogo
+          </button>
+          <button type="reset" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-md">
+            Limpar
+          </button>
+        </div>
+      </form>
+
+      <div>
+        <h3 class="text-xl font-bold mb-4">Jogos Cadastrados</h3>
+        <div class="overflow-x-auto">
+          <table id="admin-games-table" class="w-full text-sm">
+            <thead>
+              <tr class="bg-gray-800">
+                <th class="p-3 text-left">Código</th>
+                <th class="p-3 text-left">Nome</th>
+                <th class="p-3 text-left">Gênero</th>
+                <th class="p-3 text-left">Preço</th>
+                <th class="p-3 text-left">Estoque</th>
+                <th class="p-3 text-left">Nota</th>
+                <th class="p-3 text-left">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Games will be dynamically rendered here -->
+              <tr>
+                <td colspan="7" class="p-3 text-center">Carregando jogos...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mt-12 bg-gray-800 py-8">
+    <div class="container mx-auto px-4 text-center">
+      <p>&copy; 2023 GameStore - Todos os direitos reservados</p>
+    </div>
+  </footer>
+
+  <!-- Modal for success messages -->
+  <div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-gray-800 rounded-lg p-6 max-w-md mx-4">
+      <div class="text-center">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
+          <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+        </div>
+        <h3 id="modal-title" class="text-xl font-bold mb-2">Sucesso!</h3>
+        <p id="modal-message" class="mb-4">Operação realizada com sucesso.</p>
+        <button id="modal-close" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-md">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
